@@ -18,39 +18,64 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4w-5Q-hqg">
-                                <rect key="frame" x="0.0" y="128" width="600" height="128"/>
+                                <rect key="frame" x="0.0" y="120" width="600" height="120"/>
                                 <color key="backgroundColor" red="0.92549019610000005" green="0.43921568630000002" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="Eso-WA-ADH"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Eso-WA-ADH"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="02w-Rc-xCN">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                 <color key="backgroundColor" red="0.16862745100000001" green="0.51764705879999995" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="j0F-Tf-miD"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="j0F-Tf-miD"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Urf-Ry-Lgj">
-                                <rect key="frame" x="0.0" y="256" width="600" height="128"/>
+                                <rect key="frame" x="0.0" y="240" width="600" height="120"/>
                                 <color key="backgroundColor" red="0.58736413720000002" green="0.0" blue="0.99855989219999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="Y0o-Ec-ZyQ"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Y0o-Ec-ZyQ"/>
+                                    </mask>
+                                </variation>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KUz-de-q0B">
-                                <rect key="frame" x="0.0" y="384" width="600" height="128"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KUz-de-q0B">
+                                <rect key="frame" x="0.0" y="360" width="600" height="120"/>
                                 <color key="backgroundColor" red="0.18228484689999999" green="0.80104959009999999" blue="0.26745620370000001" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="jEP-wK-LqE"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="jEP-wK-LqE"/>
+                                    </mask>
+                                </variation>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6hz-LM-9sv">
-                                <rect key="frame" x="0.0" y="512" width="600" height="88"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hz-LM-9sv">
+                                <rect key="frame" x="0.0" y="480" width="600" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="AeP-rW-6Fr"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="AeP-rW-6Fr"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -59,12 +84,16 @@
                             <constraint firstItem="02w-Rc-xCN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="57W-4i-lic"/>
                             <constraint firstItem="n4w-5Q-hqg" firstAttribute="top" secondItem="02w-Rc-xCN" secondAttribute="bottom" id="7SC-tv-gdI"/>
                             <constraint firstAttribute="trailing" secondItem="02w-Rc-xCN" secondAttribute="trailing" id="8Sh-wK-fEd"/>
+                            <constraint firstItem="02w-Rc-xCN" firstAttribute="height" secondItem="n4w-5Q-hqg" secondAttribute="height" id="H8F-A2-ONv"/>
                             <constraint firstItem="KUz-de-q0B" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="IT0-ss-IyR"/>
                             <constraint firstItem="6hz-LM-9sv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Iao-Na-ubN"/>
                             <constraint firstAttribute="trailing" secondItem="KUz-de-q0B" secondAttribute="trailing" id="OZB-y2-6qL"/>
                             <constraint firstItem="02w-Rc-xCN" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="QFS-q6-kW4"/>
+                            <constraint firstItem="Urf-Ry-Lgj" firstAttribute="height" secondItem="KUz-de-q0B" secondAttribute="height" id="Vm5-mh-s8M"/>
                             <constraint firstAttribute="trailing" secondItem="Urf-Ry-Lgj" secondAttribute="trailing" id="Xry-Ut-gCz"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="6hz-LM-9sv" secondAttribute="bottom" id="ZOp-M2-0bc"/>
+                            <constraint firstItem="KUz-de-q0B" firstAttribute="height" secondItem="6hz-LM-9sv" secondAttribute="height" id="ZXG-T3-N5f"/>
+                            <constraint firstItem="n4w-5Q-hqg" firstAttribute="height" secondItem="Urf-Ry-Lgj" secondAttribute="height" id="cy8-2l-AXB"/>
                             <constraint firstItem="n4w-5Q-hqg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="cz7-1d-ymt"/>
                             <constraint firstAttribute="trailing" secondItem="6hz-LM-9sv" secondAttribute="trailing" id="pkb-Rr-Zco"/>
                             <constraint firstItem="KUz-de-q0B" firstAttribute="top" secondItem="Urf-Ry-Lgj" secondAttribute="bottom" id="rKo-P7-tcv"/>
