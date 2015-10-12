@@ -83,7 +83,7 @@
     CABasicAnimation *opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
     opacity.fromValue         = [NSNumber numberWithFloat:1.0];
     opacity.toValue           = [NSNumber numberWithFloat:0.0];
-    opacity.duration            = .51; // "animate over 10 seconds or so.."
+    opacity.duration            = .6; // "animate over 10 seconds or so.."
     opacity.repeatCount         =  1;  // Animate only once..
     opacity.removedOnCompletion = false; // don't remove after finishing
     opacity.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
@@ -93,7 +93,7 @@
     
     // Add the animation to the circle
     [self.circle addAnimation:animation forKey:@"drawCircleAnimation"];
-//    [self.circle addAnimation:opacity forKey:@"drawCircleAnimationOpacity"];
+    [self.circle addAnimation:opacity forKey:@"drawCircleAnimationOpacity"];
     
     return YES;
 }
@@ -102,7 +102,7 @@
 {
     if (flag)
     {
-//        [self.circle removeFromSuperlayer];
+        [self.circle removeFromSuperlayer];
     }
 }
 
