@@ -8,28 +8,18 @@
 
 #import "UIView+TouchBubble.h"
 #import <objc/runtime.h>
+#import <QuartzCore/QuartzCore.h>
 
 @implementation UIView (TouchBubble)
 
 - (void) addTouchBubble
 {
     [self setTouchBubbleColor:[UIColor whiteColor]];
-    [self addTouchGestureRecognizer];
 }
 
 - (void) addTouchBubbleForWhiteBackground
 {
     [self setTouchBubbleColor:[UIColor lightGrayColor]];
-    [self addTouchGestureRecognizer];
-}
-
-- (void) addTouchGestureRecognizer
-{
-    UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc] init];
-    tapRecognizer.minimumPressDuration = 0.0;
-    tapRecognizer.delegate = self;
-    tapRecognizer.delaysTouchesBegan = false;
-    [self addGestureRecognizer:tapRecognizer];
 }
 
 - (CAShapeLayer*) circle {
@@ -45,12 +35,17 @@
 }
 
 - (void) setTouchBubbleColor:(UIColor *)touchBubbleColor {
-    touchBubbleColor = [touchBubbleColor colorWithAlphaComponent:.25];
+    touchBubbleColor = [touchBubbleColor colorWithAlphaComponent:.15];
     objc_setAssociatedObject(self, @selector(touchBubbleColor), touchBubbleColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (BOOL) gestureRecognizerShouldBegin:(UITapGestureRecognizer*)gestureRecognizer
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (touches.count != 1)
+        return;
+    
+    UITouch *touch = [touches anyObject];
+    
     if (self.circle != nil)
     {
         [self.circle removeFromSuperlayer];
@@ -67,43 +62,57 @@
     // set initial shape
     self.circle.path = startShape.CGPath;
     self.circle.fillColor = self.touchBubbleColor.CGColor;
-    self.circle.position = [gestureRecognizer locationInView:self];
+    self.circle.position = [touch locationInView:self];
     
     // animate the `path`
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.toValue           = (__bridge id)(endShape.CGPath);
-    animation.duration            = .5; // "animate over 10 seconds or so.."
-    animation.repeatCount         =  1;  // Animate only once..
+    animation.duration            = .3;
+    animation.repeatCount         =  1;
     animation.removedOnCompletion = false; // don't remove after finishing
-    animation.fillMode = kCAFillModeBoth; // keep to value after finishing
-    // Experiment with timing to get the appearence to look the way you want
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    animation.fillMode = kCAFillModeForwards; // keep to value after finishing
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     animation.delegate = self;
-    
-    CABasicAnimation *opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacity.fromValue         = [NSNumber numberWithFloat:1.0];
-    opacity.toValue           = [NSNumber numberWithFloat:0.0];
-    opacity.duration            = .6; // "animate over 10 seconds or so.."
-    opacity.repeatCount         =  1;  // Animate only once..
-    opacity.removedOnCompletion = false; // don't remove after finishing
-    opacity.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     
     // Add to parent layer
     [self.layer addSublayer:self.circle];
     
     // Add the animation to the circle
     [self.circle addAnimation:animation forKey:@"drawCircleAnimation"];
-    [self.circle addAnimation:opacity forKey:@"drawCircleAnimationOpacity"];
-    
-    return YES;
+    [self.circle setName:@"increasingSize"];
 }
 
-- (void) animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+- (void) animationDidStop:(CABasicAnimation *)anim finished:(BOOL)flag
 {
-    if (flag)
+    if ([self.circle.name isEqualToString:@"increasingSize"])
     {
-        [self.circle removeFromSuperlayer];
+        [self addOpacityAnimationWithDelay:.25];
     }
+}
+
+-(void)touchesEnded:(NSSet*)touches withEvent:(UIEvent *)event
+{
+    if (touches.count == 1 && [self.circle.name isEqualToString:@"increasingSize"])
+    {
+        [self addOpacityAnimationWithDelay:0.0];
+    }
+}
+
+- (void) addOpacityAnimationWithDelay:(CGFloat)delay
+{
+    [self.circle setName:@"reducingOpacity"];
+    
+    CABasicAnimation *opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacity.fromValue         = [NSNumber numberWithFloat:1.0];
+    opacity.toValue           = [NSNumber numberWithFloat:0.0];
+    opacity.duration            = .25;
+    opacity.beginTime           =  CACurrentMediaTime() + delay;
+    opacity.repeatCount         =  1;  // Animate only once..
+    opacity.removedOnCompletion = false; // don't remove after finishing
+    opacity.fillMode = kCAFillModeForwards; // keep to value after finishing
+    opacity.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    
+    [self.circle addAnimation:opacity forKey:@"drawCircleAnimationOpacity"];
 }
 
 @end
