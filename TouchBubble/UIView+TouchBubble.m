@@ -56,6 +56,7 @@
         [self.circle removeFromSuperlayer];
     }
     self.circle = [CAShapeLayer layer];
+    self.circle.zPosition = -100;
     self.layer.masksToBounds = YES;
     
     // begin with a circle with a 50 points radius
@@ -72,7 +73,7 @@
     // animate the `path`
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.toValue           = (__bridge id)(endShape.CGPath);
-    animation.duration            = .3;
+    animation.duration            = .25;
     animation.repeatCount         =  1;
     animation.removedOnCompletion = false; // don't remove after finishing
     animation.fillMode = kCAFillModeForwards; // keep to value after finishing
@@ -91,7 +92,7 @@
 {
     if ([self.circle.name isEqualToString:@"increasingSize"])
     {
-        [self addOpacityAnimationWithDelay:.25];
+        [self addOpacityAnimationWithDelay:.3];
     }
 }
 
