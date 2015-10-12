@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		222475A81BCBA26B0056D846 /* UIView+TouchBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 222475A71BCBA26B0056D846 /* UIView+TouchBubble.m */; settings = {ASSET_TAGS = (); }; };
 		22C41A321B92A0CC00ABF7A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C41A311B92A0CC00ABF7A5 /* main.m */; };
 		22C41A351B92A0CC00ABF7A5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C41A341B92A0CC00ABF7A5 /* AppDelegate.m */; };
 		22C41A381B92A0CC00ABF7A5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C41A371B92A0CC00ABF7A5 /* ViewController.m */; };
@@ -27,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		222475A61BCBA26B0056D846 /* UIView+TouchBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TouchBubble.h"; sourceTree = "<group>"; };
+		222475A71BCBA26B0056D846 /* UIView+TouchBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TouchBubble.m"; sourceTree = "<group>"; };
 		22C41A2C1B92A0CC00ABF7A5 /* TouchBubble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchBubble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C41A301B92A0CC00ABF7A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22C41A311B92A0CC00ABF7A5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -89,6 +92,8 @@
 				22C41A3C1B92A0CC00ABF7A5 /* Images.xcassets */,
 				22C41A3E1B92A0CC00ABF7A5 /* LaunchScreen.xib */,
 				22C41A2F1B92A0CC00ABF7A5 /* Supporting Files */,
+				222475A61BCBA26B0056D846 /* UIView+TouchBubble.h */,
+				222475A71BCBA26B0056D846 /* UIView+TouchBubble.m */,
 			);
 			path = TouchBubble;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 			files = (
 				22C41A381B92A0CC00ABF7A5 /* ViewController.m in Sources */,
 				22C41A351B92A0CC00ABF7A5 /* AppDelegate.m in Sources */,
+				222475A81BCBA26B0056D846 /* UIView+TouchBubble.m in Sources */,
 				22C41A321B92A0CC00ABF7A5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +422,7 @@
 				22C41A511B92A0CC00ABF7A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		22C41A521B92A0CC00ABF7A5 /* Build configuration list for PBXNativeTarget "TouchBubbleTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +431,7 @@
 				22C41A541B92A0CC00ABF7A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

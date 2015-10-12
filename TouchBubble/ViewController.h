@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIGestureRecognizerDelegate>
 
+@property (nonatomic, retain) IBOutlet UIView *coloredView1;
+@property (nonatomic, retain) IBOutlet UIView *coloredView2;
+@property (nonatomic, retain) IBOutlet UIView *coloredView3;
+@property (nonatomic, retain) IBOutlet UIView *coloredView4;
+@property (nonatomic, retain) IBOutlet UIView *coloredView5;
 
 @end
 

@@ -7,8 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "UIView+TouchBubble.h"
 
 @interface ViewController ()
+{
+    CAShapeLayer *circle;
+}
 
 @end
 
@@ -18,7 +22,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [self addGestureRecognizer];
+//    [self addGestureRecognizer];
+    [self.coloredView1 addTouchBubble];
+    [self.coloredView2 addTouchBubble];
+    [self.coloredView3 addTouchBubble];
+    [self.coloredView4 addTouchBubble];
+    [self.coloredView5 addTouchBubbleForWhiteBackground];
     
     /*
     CGPoint center = CGPointMake(0,0);
@@ -95,46 +104,75 @@
 
 - (void) addGestureRecognizer
 {
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animateCircle)];
+    UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc] init];
+    tapRecognizer.minimumPressDuration = 0.0;
+    tapRecognizer.delegate = self;
+    tapRecognizer.delaysTouchesBegan = false;
     [self.view addGestureRecognizer:tapRecognizer];
 }
 
-- (void) animateCircle
+- (BOOL) gestureRecognizerShouldBegin:(UITapGestureRecognizer*)gestureRecognizer
 {
-    CAShapeLayer *circle = [CAShapeLayer layer];
+    
+    [self animateCircle:gestureRecognizer];
+    return YES;
+}
+
+- (void) animateCircle:(UITapGestureRecognizer*)recognizer
+{
+    if (circle != nil)
+    {
+        [circle removeFromSuperlayer];
+    }
+    
+    NSLog(@"TEst");
+    
+    circle = [CAShapeLayer layer];
     
     // begin with a circle with a 50 points radius
     CGPoint center = CGPointMake(0, 0);
-    CGFloat radius = 75;
+    CGFloat radius = 150;
     UIBezierPath *startShape = [UIBezierPath bezierPathWithArcCenter:center radius:2 startAngle:0 endAngle:2*M_PI clockwise:YES];
     UIBezierPath *endShape = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle:2*M_PI clockwise:YES];
     
     // set initial shape
     circle.path = startShape.CGPath;
-    circle.fillColor = [UIColor redColor].CGColor;
-    circle.position = CGPointMake(CGRectGetMidX(self.view.frame),
-                                  CGRectGetMidY(self.view.frame));
+    circle.fillColor = [[UIColor grayColor] colorWithAlphaComponent:.35].CGColor;
+    circle.position = [recognizer locationInView:self.view];
     
-    // 2
     // animate the `path`
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.toValue           = (__bridge id)(endShape.CGPath);
-    animation.duration            = 10.0; // "animate over 10 seconds or so.."
-    animation.repeatCount         = 1.0;  // Animate only once..
-     
-    // 3
+    animation.duration            = .5; // "animate over 10 seconds or so.."
+    animation.repeatCount         =  1;  // Animate only once..
+    animation.removedOnCompletion = true; // don't remove after finishing
     animation.fillMode = kCAFillModeBoth; // keep to value after finishing
-    animation.removedOnCompletion = false; // don't remove after finishing
-    // 4
-    
     // Experiment with timing to get the appearence to look the way you want
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    animation.delegate = self;
+    
+    CABasicAnimation *opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacity.fromValue         = [NSNumber numberWithFloat:1.0];
+    opacity.toValue           = [NSNumber numberWithFloat:0.0];
+    opacity.duration            = .5; // "animate over 10 seconds or so.."
+    opacity.repeatCount         =  1;  // Animate only once..
+    opacity.removedOnCompletion = true; // don't remove after finishing
+    opacity.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     
     // Add to parent layer
     [self.view.layer addSublayer:circle];
     
     // Add the animation to the circle
     [circle addAnimation:animation forKey:@"drawCircleAnimation"];
+    [circle addAnimation:opacity forKey:@"drawCircleAnimationOpacity"];
+}
+
+- (void) animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    if (flag)
+    {
+        [circle removeFromSuperlayer];
+    }
 }
 
 @end
