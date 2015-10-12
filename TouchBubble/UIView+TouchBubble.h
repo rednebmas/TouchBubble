@@ -11,6 +11,7 @@
 @interface UIView (TouchBubble) <UIGestureRecognizerDelegate>
 
 - (void) addTouchBubble;
+- (void) addTouchBubbleWithColor:(UIColor*)color;
 - (void) addTouchBubbleForWhiteBackground;
 
 @property (nonatomic, retain) CAShapeLayer *circle;

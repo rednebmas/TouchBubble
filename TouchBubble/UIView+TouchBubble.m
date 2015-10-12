@@ -22,6 +22,11 @@
     [self setTouchBubbleColor:[UIColor lightGrayColor]];
 }
 
+- (void) addTouchBubbleWithColor:(UIColor*)color
+{
+    [self setTouchBubbleColor:color];
+}
+
 - (CAShapeLayer*) circle {
     return objc_getAssociatedObject(self, @selector(circle));
 }
