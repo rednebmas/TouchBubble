@@ -10,23 +10,29 @@
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 
+#define DEFAULT_ALPHA_COMPONENT 0.15
+
 @implementation UIView (TouchBubble)
 
 - (void) addTouchBubble
 {
-    [self setTouchBubbleColor:[UIColor whiteColor]];
+    [self setTouchBubbleColor:[[UIColor whiteColor] colorWithAlphaComponent:DEFAULT_ALPHA_COMPONENT]];
 }
 
 - (void) addTouchBubbleForWhiteBackground
 {
-    [self setTouchBubbleColor:[UIColor lightGrayColor]];
+    [self setTouchBubbleColor:[[UIColor lightGrayColor] colorWithAlphaComponent:DEFAULT_ALPHA_COMPONENT]];
 }
 
-- (void) addTouchBubbleWithColor:(UIColor*)color
+- (void) setup
 {
-    [self setTouchBubbleColor:color];
+    self.layer.masksToBounds = YES;
 }
 
+/***/
+/*** Properties for Objective-C categories      ***/
+/*** http://stackoverflow.com/a/14899909/337934 ***/
+/***/
 - (CAShapeLayer*) circle {
     return objc_getAssociatedObject(self, @selector(circle));
 }
@@ -40,26 +46,26 @@
 }
 
 - (void) setTouchBubbleColor:(UIColor *)touchBubbleColor {
-    touchBubbleColor = [touchBubbleColor colorWithAlphaComponent:.15];
     objc_setAssociatedObject(self, @selector(touchBubbleColor), touchBubbleColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (self.touchBubbleColor == nil)
+        return;
+    
     if (touches.count != 1)
         return;
     
+    if (self.circle != nil)
+        [self.circle removeFromSuperlayer];
+    
     UITouch *touch = [touches anyObject];
     
-    if (self.circle != nil)
-    {
-        [self.circle removeFromSuperlayer];
-    }
     self.circle = [CAShapeLayer layer];
     self.circle.zPosition = -100;
-    self.layer.masksToBounds = YES;
     
-    // begin with a circle with a 50 points radius
+    // begin with a circle with a 150 points radius
     CGPoint center = CGPointMake(0, 0);
     CGFloat radius = 150;
     UIBezierPath *startShape = [UIBezierPath bezierPathWithArcCenter:center radius:2 startAngle:0 endAngle:2*M_PI clockwise:YES];
@@ -71,8 +77,8 @@
     self.circle.position = [touch locationInView:self];
     
     // animate the `path`
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.toValue           = (__bridge id)(endShape.CGPath);
+    CABasicAnimation *animation   = [CABasicAnimation animationWithKeyPath:@"path"];
+    animation.toValue             = (__bridge id)(endShape.CGPath);
     animation.duration            = .25;
     animation.repeatCount         =  1;
     animation.removedOnCompletion = false; // don't remove after finishing
