@@ -17,11 +17,13 @@
 - (void) addTouchBubble
 {
     [self setTouchBubbleColor:[[UIColor whiteColor] colorWithAlphaComponent:DEFAULT_ALPHA_COMPONENT]];
+    [self setup];
 }
 
 - (void) addTouchBubbleForWhiteBackground
 {
     [self setTouchBubbleColor:[[UIColor lightGrayColor] colorWithAlphaComponent:DEFAULT_ALPHA_COMPONENT]];
+    [self setup];
 }
 
 - (void) setup
