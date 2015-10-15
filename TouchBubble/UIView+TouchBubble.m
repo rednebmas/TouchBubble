@@ -53,6 +53,8 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesBegan:touches withEvent:event];
+    
     if (self.touchBubbleColor == nil)
         return;
     
@@ -106,6 +108,8 @@
 
 -(void)touchesEnded:(NSSet*)touches withEvent:(UIEvent *)event
 {
+    [super touchesEnded:touches withEvent:event];
+    
     if (touches.count == 1 && [self.circle.name isEqualToString:@"increasingSize"])
     {
         [self addOpacityAnimationWithDelay:0.0];
