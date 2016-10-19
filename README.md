@@ -1,6 +1,6 @@
 TouchBubble
 ===========
-This project was inspired by what I'm calling touch bubbles in Google's apps (most notably their Maps app).
+This project was inspired by the Google Maps app.
 
 To use, copy the UIView+TouchBubble category into your project. To add the touch bubble to a view, call the method `addTouchBubble` on the view. Don't forget to `#import UIView+TouchBubble.h`.
 
